@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react'
 
-import {fetchDataFake, fetchSelectFake} from '../../utils.js'
+import {fetchDataFake, fetchSelectDataFake} from '../../utils.js'
 import { currencyReducer, INITIAL_STATE } from './currency.reducer'
 
 const CurrencyConverter = () => {
@@ -13,7 +13,7 @@ const CurrencyConverter = () => {
             const result = ((input * outputBase).toFixed(2))
             dispatch({ type: 'setOutput', payload: result})
         } catch (error) {
-            dispatch({ type: 'setError', payload: error.info})
+            dispatch({ type: 'setError', payload: error})
         }
     }
     const handleChange = e => {
@@ -25,7 +25,7 @@ const CurrencyConverter = () => {
 
     useEffect( () => {
         const getOptions = async () => {
-            const options = Object.keys(await fetchSelectFake())
+            const options = Object.keys(await fetchSelectDataFake())
             dispatch({ type: 'setOptions', payload: options })
 
         }

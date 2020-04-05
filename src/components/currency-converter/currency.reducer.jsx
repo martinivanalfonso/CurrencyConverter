@@ -32,7 +32,8 @@ export const currencyReducer = (state = INITIAL_STATE, action) => {
         case 'setError': 
             return {
                 ...state,
-                error: action.payload
+                error: action.payload,
+                output: ''
             }
         default:
         return {
