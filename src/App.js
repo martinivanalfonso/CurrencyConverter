@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import CurrencyConverter from './components/currecy-converter/currency-converter.component'
+import CurrencyConverter from './components/currency-converter/currency-converter.component'
 
 function App() {
   return (
     <div>
-      <CurrencyConvertor />
+      <CurrencyConverter />
     </div>
   );
 }

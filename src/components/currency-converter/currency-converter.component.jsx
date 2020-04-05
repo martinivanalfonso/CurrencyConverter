@@ -1,4 +1,6 @@
-import React, { useState, useEffect} from 'react'
+import React, { useEffect, useReducer } from 'react'
+
+import { currencyReducer, INITIAL_STATE } from './currency.reducer'
 
 const fetchData = () => {
     const url = "http://data.fixer.io/api/latest?access_key=166e64d8585a6f6f7879b63ccc83ef8b&format=1"
@@ -39,32 +41,30 @@ const fetchSelectFake = () => {
 }
 
 const CurrencyConverter = () => {
-
-    const [input, setInput] = useState(0) 
-    const [output, setOutput] = useState(0) 
-    const [options, setOptions] = useState([]) 
-    const [currentBase, setCurrentBase] = useState('') 
+    const [state, dispatch] = useReducer(currencyReducer, INITIAL_STATE)
+    const { input, output, options, base } = state
 
     const handleConvertion = async() => {
         try {
-           const base = await fetchDataFake(currentBase)
-            setOutput((input * base).toFixed(2))
+           const outputBase = await fetchDataFake(base)
+            const result = ((input * outputBase).toFixed(2))
+            dispatch({ type: 'setOutput', payload: result})
         } catch (error) {
-            console.log(error.info)
+            dispatch({ type: 'setError', payload: error})
         }
     }
     const handleChange = e => {
-        setInput(e.target.value)
+        dispatch({ type: 'setInput', payload: e.target.value })
     }
     const handleSelectChange = e => {
-        console.log(e.target.value)
-        setCurrentBase(e.target.value)
+        dispatch({ type: 'setBase', payload: e.target.value })
     }
 
     useEffect( () => {
         const getOptions = async () => {
             const options = Object.keys(await fetchSelectFake())
-            setOptions(options)
+            dispatch({ type: 'setOptions', payload: options })
+
         }
         getOptions()
     },[])
@@ -73,7 +73,8 @@ const CurrencyConverter = () => {
         <div>
             <h2>Euro </h2>
             <select onChange={handleSelectChange}>
-                 {options.map( option => <option key={option}>{option}</option> )}
+                <option>Select</option>
+                 { options.map( option => <option key={option}>{option}</option> )}
             </select>
             <input type='text' onChange={handleChange} value={input} /> 
             <h2>AUD </h2>
