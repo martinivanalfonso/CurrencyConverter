@@ -9,7 +9,7 @@ export const fetchData = (outputBase) => {
         data.rates[outputBase]
           ? resolve(data.rates[outputBase])
           : reject("Currency not found")
-      );
+      ).catch((err) => reject(err.info));
   });
 };
 export const fetchSelectData = () => {
