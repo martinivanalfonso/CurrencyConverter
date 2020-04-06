@@ -27,8 +27,12 @@ export const ConvertButton = styled.button`
 padding: 10px 20px;
 background-color: #9BC53D;
 margin: 50px;
-border: 1 px solid white;
+border: 1px solid transparent;
 border-radius: 10px;
 width: 60%;
 cursor: pointer;
+
+&:hover {
+    border: 1px solid white;
+}
 `

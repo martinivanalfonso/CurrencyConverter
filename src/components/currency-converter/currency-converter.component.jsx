@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 
-import { fetchDataFake, fetchSelectDataFake } from "../../utils.js";
+import { fetchData, fetchSelect } from "../../utils.js";
 import { currencyReducer, INITIAL_STATE } from "./currency.reducer";
 import {PageContainer, CurrencyConverterContainer, ConvertButton} from "./currency-converter.styles";
 
@@ -36,14 +36,14 @@ const CurrencyConverter = () => {
     <PageContainer>
       <CurrencyConverterContainer>
         <h2>Euro Currency Converter </h2>
-        <h2>FROM </h2>
+        <h3>From </h3>
         <div>
           <input type="text" onChange={handleChange} value={input} autoFocus />
           <select>
             <option>EUR</option>
           </select>
         </div>
-        <h2>TO </h2>
+        <h3>To </h3>
         <div>
           <input type="text" readOnly value={output} />
           <select onChange={handleSelectChange}>
@@ -53,7 +53,7 @@ const CurrencyConverter = () => {
             ))}
           </select>
         </div>
-        <ConvertButton onClick={handleConvertion}>CONVERT</ConvertButton>
+        <ConvertButton onClick={handleConvertion}><strong>CONVERT</strong></ConvertButton>
         {error && <p>{error}</p>}
       </CurrencyConverterContainer>
     </PageContainer>
