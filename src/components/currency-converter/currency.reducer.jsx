@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   options: [],
   outputBase: "",
   error: "",
+  isLoading: true,
 };
 
 export const currencyReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +24,7 @@ export const currencyReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         options: action.payload,
+        isLoading: false,
       };
     case "setOutputBase":
       return {
@@ -34,6 +36,7 @@ export const currencyReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
         output: "",
+        isLoading: false,
       };
     default:
       return {

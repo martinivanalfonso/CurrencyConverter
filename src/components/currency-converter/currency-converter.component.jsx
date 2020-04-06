@@ -1,16 +1,16 @@
 import React, { useEffect, useReducer } from "react";
 
-import { fetchData, fetchSelect } from "../../utils.js";
+import { fetchData, fetchSelectData } from "../../utils.js";
 import { currencyReducer, INITIAL_STATE } from "./currency.reducer";
 import {PageContainer, CurrencyConverterContainer, ConvertButton} from "./currency-converter.styles";
 
 const CurrencyConverter = () => {
   const [state, dispatch] = useReducer(currencyReducer, INITIAL_STATE);
-  const { input, output, options, outputBase, error } = state;
+  const { input, output, options, outputBase, isLoading, error } = state;
 
   useEffect(() => {
     const getOptions = async () => {
-      const options = Object.keys(await fetchSelectDataFake());
+      const options = Object.keys(await fetchSelectData());
       dispatch({ type: "setOptions", payload: options });
     };
     getOptions();
@@ -18,7 +18,7 @@ const CurrencyConverter = () => {
 
   const handleConvertion = async () => {
     try {
-      const outputBaseRate = await fetchDataFake(outputBase);
+      const outputBaseRate = await fetchData(outputBase);
       const result = (input * outputBaseRate).toFixed(2);
       dispatch({ type: "setOutput", payload: result });
     } catch (error) {
@@ -55,6 +55,7 @@ const CurrencyConverter = () => {
         </div>
         <ConvertButton onClick={handleConvertion}><strong>CONVERT</strong></ConvertButton>
         {error && <p>{error}</p>}
+        {isLoading && <p>Fetching API, please wait...</p>}
       </CurrencyConverterContainer>
     </PageContainer>
   );
