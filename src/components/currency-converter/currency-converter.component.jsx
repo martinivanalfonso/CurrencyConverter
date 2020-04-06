@@ -2,32 +2,7 @@ import React, { useEffect, useReducer } from "react";
 
 import { fetchDataFake, fetchSelectDataFake } from "../../utils.js";
 import { currencyReducer, INITIAL_STATE } from "./currency.reducer";
-import styled from "styled-components";
-
-const PageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-`;
-
-const CurrencyConverterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  max-width: 800px;
-  background-color: red;
-  padding: 20px 40px;
-`;
-
-const ConvertButton = styled.button`
-padding: 10px 20px;
-background-color: green;
-margin-top: 20px;
-`
+import {PageContainer, CurrencyConverterContainer, ConvertButton} from "./currency-converter.styles";
 
 const CurrencyConverter = () => {
   const [state, dispatch] = useReducer(currencyReducer, INITIAL_STATE);
