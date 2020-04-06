@@ -10,8 +10,12 @@ const CurrencyConverter = () => {
 
   useEffect(() => {
     const getOptions = async () => {
-      const options = Object.keys(await fetchSelectData());
-      dispatch({ type: "setOptions", payload: options });
+      try {
+        const options = Object.keys(await fetchSelectData());
+        dispatch({ type: "setOptions", payload: options });
+      } catch (error) {
+        dispatch({ type: "setError", payload: "Failed to fetch currency options" });
+      }
     };
     getOptions();
   }, []);
